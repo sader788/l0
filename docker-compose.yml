@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: "WB"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      WB_NET:
+        aliases:
+          - pg.wb
+  nats-streaming:
+    image: nats-streaming:latest
+    container_name: nats-streaming
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    networks:
+      WB_NET:
+        aliases:
+          - nats.wb
+  server-app:
+    build: .
+    container_name: wb-app
+    environment:
+      WB_PG_HOST: "pg.wb"
+      WB_PG_PORT: "5432"
+      WB_NATS_HOST: "nats.wb"
+      WB_NATS_PORT: "4222"
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
+      - nats-streaming
+    networks:
+      WB_NET:
+        aliases:
+          - server.wb
+networks:
+  WB_NET:
