@@ -37,6 +37,7 @@ services:
       WB_NATS_PORT: "4222"
     ports:
       - "80:80"
+    restart: always
     depends_on:
       - postgres
       - nats-streaming
