@@ -8,7 +8,7 @@ type ConfigPostgres struct {
 	PostgresHost string `env:"WB_PG_HOST" env-default:"localhost"`
 	PostgresPort int    `env:"WB_PG_PORT" env-default:"5432"`
 	UserName     string `env:"WB_PG_NAME" env-default:"user"`
-	UserPassword string `env:"WB_PG_PASS" env-default:"password"`
+	UserPassword string `env:"WB_PG_PASS"`
 	Database     string `env:"WB_PG_DB" env-default:"WB"`
 }
 
