@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func ConnectDB(cfg *config.ConfgiPostgres) (*pgx.Conn, error) {
+func ConnectDB(cfg *config.ConfigPostgres) (*pgx.Conn, error) {
 	url := fmt.Sprintf("postgres://%s:%s@%s:%d/%s", cfg.UserName, cfg.UserPassword, cfg.PostgresHost, cfg.PostgresPort, cfg.Database)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

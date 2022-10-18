@@ -4,7 +4,7 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
-type ConfgiPostgres struct {
+type ConfigPostgres struct {
 	PostgresHost string `env:"WB_PG_HOST" env-default:"localhost"`
 	PostgresPort int    `env:"WB_PG_PORT" env-default:"5432"`
 	UserName     string `env:"WB_PG_NAME" env-default:"user"`
@@ -26,7 +26,7 @@ type ConfigServer struct {
 }
 
 type Configs struct {
-	Postgres ConfgiPostgres
+	Postgres ConfigPostgres
 	Nats     ConfigNats
 	Server   ConfigServer
 }
